@@ -12,14 +12,14 @@
 #define MA_NO_NODE_GRAPH
 #define MA_NO_ENGINE
 #define MA_NO_GENERATION
-//#define MA_DEBUG_OUTPUT
+#define MA_DEBUG_OUTPUT
 
 #ifdef __APPLE__
     #define MA_NO_RUNTIME_LINKING
 #endif
 #define MINIAUDIO_IMPLEMENTATION
-//#define MA_NO_PULSEAUDIO
-//#define MA_NO_JACK
+#define MA_NO_PULSEAUDIO
+#define MA_NO_ALSA
 
 #include "miniaudio.h"
 

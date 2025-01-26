@@ -1,6 +1,6 @@
 # Makefile for libamy , including an example
 
-TARGET = amy-example amy-message
+TARGET = amy-module
 LIBS = -lpthread  -lm 
 
 
@@ -45,7 +45,7 @@ all: default
 SOURCES = src/algorithms.c src/amy.c src/envelope.c src/examples.c \
 	src/filters.c src/oscillators.c src/pcm.c src/partials.c src/interp_partials.c src/custom.c \
 	src/delay.c src/log2_exp2.c src/patches.c src/transfer.c src/sequencer.c \
-	src/libminiaudio-audio.c
+	src/jack-audio.c
 
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES)) 
  
@@ -71,7 +71,7 @@ amy-example: $(OBJECTS) src/amy-example.o
 amy-message: $(OBJECTS) src/amy-message.o
 	$(CC) $(OBJECTS) src/amy-message.o -Wall $(LIBS) -o $@
 
-amy-module: amy-example
+amy-module: $(OBJECTS)
 	${EXTRA_PIP_ENV} ${PYTHON} -m pip install -r requirements.txt; touch src/amy.c; cd src; ${EXTRA_PIP_ENV} ${PYTHON} -m pip install . --force-reinstall; cd ..
 
 test: amy-module
@@ -92,5 +92,7 @@ docs/amy-audioin.js: $(TARGET)
 
 clean:
 	-rm -f src/*.o
-	-rm -r src/patches.h
+	-rm -f src/patches.h
 	-rm -f $(TARGET)
+	-rm -rf src/build
+	-rm -rf src/*.egg-info

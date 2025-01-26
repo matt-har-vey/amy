@@ -2,7 +2,7 @@ from distutils.core import setup, Extension
 import glob
 import os
 # the c++ extension module
-sources = ['algorithms.c', 'amy.c', 'delay.c', 'envelope.c', 'filters.c', 'sequencer.c', 'transfer.c', 'custom.c', 'patches.c', 'libminiaudio-audio.c', 'oscillators.c', 'partials.c', 'interp_partials.c', 'pcm.c', 'pyamy.c', 'log2_exp2.c']
+sources = ['algorithms.c', 'amy.c', 'delay.c', 'envelope.c', 'filters.c', 'sequencer.c', 'transfer.c', 'custom.c', 'patches.c', 'oscillators.c', 'partials.c', 'interp_partials.c', 'pcm.c', 'pyamy.c', 'log2_exp2.c', 'jack-audio.c']
 os.environ["CC"] = "gcc"
 os.environ["CXX"] = "g++"
 
@@ -11,6 +11,9 @@ if os.uname()[0] == 'Darwin':
 	frameworks = ['CoreAudio', 'AudioToolbox', 'AudioUnit', 'CoreFoundation']
 	for f in frameworks:
 		link_args += ['-framework', f]
+
+if os.uname()[0] == 'Linux':
+    link_args += ['-ljack']
 
 if os.uname()[4] == 'armv7l' or os.uname()[4] == 'armv6l':
 	link_args += ['-latomic', '-ldl']

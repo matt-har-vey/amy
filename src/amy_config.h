@@ -12,15 +12,9 @@
 #define BLOCK_SIZE_BITS 8 // log2 of BLOCK_SIZE
 #endif
 
-#define AMY_OSCS 120
+#define AMY_OSCS 1024
 
-#ifdef AMY_DAISY
 #define AMY_SAMPLE_RATE 48000
-#elif defined __EMSCRIPTEN__
-#define AMY_SAMPLE_RATE 48000
-#else
-#define AMY_SAMPLE_RATE 44100 
-#endif
 #ifdef ALLES
 #define AMY_NCHANS 1
 #elif defined ARDUINO
